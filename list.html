@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+        #box {
+            width: 1000px;height: auto;margin: 20px auto;border-radius: 25px;padding:20px 20px;          
+            background: #b0c4df;text-align: center;position: relative;color: blue;           
+        }
+        #box .header{
+            width:400px;height:45px;margin:0 auto;border: 3px solid blue;overflow:hidden;
+            background: blue;
+            }
+        #box .header img{width:20px;height:20px;}
+        #box .header input{
+        	width:290px;height:51px;/*padding:4px 0;*/font-size:18px;
+        	/*background:url('img/sou.png') no-repeat ;*/
+        	}
+        #box .header button{
+        	width:105px;height:48px;background: blue;border: none;margin-left:-5px;
+        	font-size:18px;color:white;cursor:pointer;
+        	}          
+        #box h3 {width: 100%;text-align: center;}      
+        #box table {
+            width: 95%;text-align: center;border-color: blue;margin: 0 auto;                                    
+        }        
+        #box table tr {width: 100%;height: 35px;background: #6495ED;cursor: pointer;}
+		#box table tr.selected{background:lightgreen;}
+		#box table td button{background: #6495ED;border: none;}        
+        #box .oper {
+            width: 40%;height: auto;margin:30px auto;text-align: center;
+            border: 3px solid blue;border-radius: 25px;background: #6495ED;
+        }
+		#box .oper input{margin-top: 20px;width: 260px;height: 35px;font-size: 18px;}      
+		#box .oper button {
+            width: 100px;height: 35px;margin: 0 20px;cursor:pointer;
+            background: #6495ED;border: none;font-size: 16px;color: blue; 
+        } 
+        #box .mod{
+        	position: absolute;left: 30%;top: 100px;}
+        #footer{margin-top:20px; font-size:18px;}
+        #footer button{margin-left:140px;}
+        #footer a{margin:0 15px;text-decoration: none;font-size:18px;}	      
+    </style>
+	</head>
+	<body>
+		<div id="box">
+			<div class="header"> 		
+    			<input type="text" id="ext" placeholder="请输入商品名称" ng-model="ext"/>
+    			<button ng-click="sou()" class="fa">搜索</button>
+    		</div>
+        	<h3>学生管理信息</h3>
+        	<table border='1' cellspacing="0">
+            	<tr>
+            		<th style="width:130px"><input type="checkbox" ng-click="all()" ng-checked="checks">全选/返选</th>
+                	<th>编号</th>
+                	<th>学生姓名</th>
+                	<th ng-click="sortQuery()">学生年龄</th>
+                	<th>学生性别</th>
+					<th>学生电话</th>
+					<th colspan="2">操作</th>
+            	</tr>
+            	<tr ng-repeat="user in list">
+            		<td><input type="checkbox"  ng-checked="checks" value="{{user._id}}"></td>
+					<td>{{$index+1}}</td>
+					<td><a ng-href="#/view/{{$index}}">{{user.username}}</a></td>
+					<td>{{user.userage}}</td>
+					<td>{{user.usersex}}</td>
+					<td>{{user.usertel}}</td>
+					<td><button ng-click="del(user._id)"><img src="img/del.png" style="width:20px;height:20px;"/>&nbsp;删除</button>
+					<td><button ng-click="update(user._id,$index)"><img src="img/modify.png" style="width:20px;height:20px;"/>&nbsp;修改</button>
+				</tr>
+        	</table>
+        	<div id="footer">
+        	<a href="javascript:;" ng-click="replace(1)">首页</a>
+        	<a href="javascript:;" ng-click="replace(page-1)">上一页</a>
+        	当前:第{{page}}页,共计：{{total}}页
+        	<a href="javascript:;" ng-click="replace(page+1)">下一页</a>
+        	<a href="javascript:;" ng-click="replace(total)">尾页</a>
+        	<button ng-click="delAll()"><img src="img/del.png" style="width:20px;height:20px;"/>&nbsp;删除</button>
+        </div>
+        	<div class="oper ">
+        		<h4>添加/修改学生信息</h4>
+        		学生姓名:&nbsp;&nbsp;<input type="text" ng-model="name" /><br/> 
+        		学生年龄:&nbsp;&nbsp;<input type="number" ng-model="age" /><br/> 
+        		学生性别:&nbsp;&nbsp;<input type="text" ng-model="sex" /><br/> 
+        		学生电话:&nbsp;&nbsp;<input type="number" ng-model="tel" /><br/>
+        		学生户口:&nbsp;&nbsp;<input type="text" ng-model="ul" /><br/>
+        		身份证号码:&nbsp;&nbsp;<input type="number" ng-model="num" /><br/>
+        		<input type="hidden" ng-model="id"><br/>
+        		<button ng-click="save()"><img src="img/save.png" style="width:20px;height:20px;"/>&nbsp;保存</button>
+        		
+        	</div>
+        	
+        </div>
+	</body>
+</html>
